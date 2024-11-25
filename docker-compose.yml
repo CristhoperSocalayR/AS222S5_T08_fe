@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  chatzure-backend:
+    image: cris2003/chatzure
+    container_name: chatzure-backend
+    ports:
+      - "8080:8080" # Puerto expuesto para el backend
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+    networks:
+      - chatzure-network
+
+  chatzure-frontend:
+    image: cris2003/chatzurefr
+    container_name: chatzure-frontend
+    ports:
+      - "4200:4200" # Puerto expuesto para el frontend
+    environment:
+      - BACK_URL=${BACK_URL} # Variable para el backend
+    depends_on:
+      - chatzure-backend
+    networks:
+      - chatzure-network
+
+networks:
+  chatzure-network:
+    driver: bridge
