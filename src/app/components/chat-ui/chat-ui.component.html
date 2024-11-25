@@ -1,0 +1,59 @@
+<div class="main-container">
+  <!-- Encabezado -->
+  <div class="chat-header">
+    <div class="header-content">
+      <img src="../../../assets/img/Llama-glare-meme-2.jpg" alt="Logo" class="logo" />
+      <h1>Chatzure</h1>
+    </div>
+  </div>
+
+  <!-- Contenedor del chat -->
+  <div class="chat-container">
+    <div *ngFor="let query of queries; let i = index" class="chat-message-container">
+      <!-- Mensaje de consulta (Prompt) -->
+      <div class="chat-message prompt">
+        <div class="message-header">
+          {{ query.prompt }}
+          <div class="message-actions">
+            <!-- Icono de editar -->
+            <i
+              class="action-icon fas fa-pencil-alt"
+              title="Editar"
+              (click)="editPrompt(i)"
+            ></i>
+            <!-- Icono de eliminar -->
+            <i
+              class="action-icon fas fa-trash-alt"
+              title="Eliminar"
+              (click)="confirmDeletePrompt(i)"
+            ></i>
+          </div>
+        </div>
+      </div>
+      <!-- Respuesta (Response) -->
+      <div class="chat-message response">
+        <ng-container *ngIf="query.response; else loadingTemplate">
+          {{ query.response }}
+        </ng-container>
+        <ng-template #loadingTemplate>
+          <i class="loading-spinner fas fa-spinner fa-spin"></i>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pie del chat -->
+  <div class="chat-footer">
+    <input
+      type="text"
+      [(ngModel)]="userPrompt"
+      placeholder="Escribe tu mensaje aquí..."
+    />
+    <button (click)="sendQuery()" [disabled]="isLoading">
+      <!-- Ícono de envío -->
+      <i *ngIf="!isLoading" class="fas fa-paper-plane"></i>
+      <!-- Ícono de carga -->
+      <i *ngIf="isLoading" class="loading-spinner fas fa-spinner fa-spin"></i>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,281 @@
+/* Contenedor principal */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-image: url('../../../assets/img/peru-uv6i863m3hng4c9x.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+/* Encabezado */
+.chat-header {
+    background-color: rgba(32, 33, 35, 0.9);
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #444654;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1s ease-in-out; /* Animación de entrada */
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+    object-fit: cover;
+}
+
+.chat-header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Animación para la entrada de los mensajes */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Contenedor del chat */
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+    background-color: rgba(42, 43, 52, 0.9);
+    overflow-y: auto;
+    align-items: flex-start;
+    animation: fadeIn 1s ease-in-out; /* Animación para el contenedor del chat */
+}
+
+/* Mensajes */
+.chat-message {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+    opacity: 0;
+    animation: fadeInMessage 0.8s ease-in-out forwards; /* Animación de entrada para cada mensaje */
+}
+
+/* Animación de entrada para los mensajes */
+@keyframes fadeInMessage {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mensaje de tipo prompt (Alineado a la derecha) */
+.chat-message.prompt {
+    background-color: #007bff;
+    color: #ffffff;
+    align-self: flex-end;
+    text-align: right;
+    border-radius: 10px 10px 0 10px;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+/* Mensaje de tipo response (Alineado a la izquierda) */
+.chat-message.response {
+    background-color: #000000;
+    color: #ffffff;
+    align-self: flex-start;
+    text-align: left;
+    border-radius: 10px 10px 10px 0;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+/* Animación de carga */
+.loading-spinner {
+    width: 30px;
+    height: 30px;
+    border: 4px solid transparent;
+    border-top: 4px solid #ffffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Animación del spinner */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Pie del chat */
+.chat-footer {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background-color: rgba(32, 33, 35, 0.9);
+    border-top: 1px solid #444654;
+}
+
+/* Diseño del input y el botón */
+.chat-footer input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #444654;
+    border-radius: 4px;
+    outline: none;
+    font-size: 14px;
+    background-color: #343541;
+    color: #ffffff;
+    transition: background-color 0.3s;
+}
+
+.chat-footer input:focus {
+    background-color: #4b4e56;
+}
+
+.chat-footer button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #10a37f;
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.chat-footer button:hover {
+    background-color: #0e8b6b;
+}
+
+/* Diseño responsivo */
+@media (max-width: 768px) {
+    .chat-footer input {
+        font-size: 12px;
+    }
+
+    .chat-footer button {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+}
+
+/* Estilo para el botón */
+.chat-footer button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #10a37f;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px; /* Ajusta el tamaño según sea necesario */
+}
+
+/* Íconos dentro del botón */
+.chat-footer button i {
+  font-size: 20px;
+}
+
+/* Spinner de carga */
+.loading-spinner {
+  font-size: 20px;
+  animation: spin 1s linear infinite;
+}
+
+/* Deshabilitar el botón mientras se está esperando la respuesta */
+.chat-footer button[disabled] {
+  background-color: #666666;
+  cursor: not-allowed;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner {
+  font-size: 18px;
+  color: #ffffff;
+  animation: spin 1s linear infinite;
+}
+
+.chat-message-container {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.message-header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.message-actions {
+  display: flex;
+  gap: 5px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.action-icon {
+  font-size: 12px;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.action-icon:hover {
+  color: #000;
+  transform: scale(1.2);
+}
+
+.chat-message-container:hover .message-actions {
+  opacity: 1;
+}
