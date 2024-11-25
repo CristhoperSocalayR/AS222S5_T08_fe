@@ -8,8 +8,8 @@ import { environment } from '../environments/environment';
   providedIn: 'root',
 })
 export class OpenAiService {
-  // Usamos la URL definida en el archivo de configuración del entorno
-  private readonly apiUrl = `${environment.back_url}api/openai`;
+  // Aseguramos que la URL base no tenga una barra inclinada al final antes de concatenar
+  private readonly apiUrl = `${environment.back_url.replace(/\/$/, '')}/api/openai`;
 
   constructor(private http: HttpClient) {}
 
