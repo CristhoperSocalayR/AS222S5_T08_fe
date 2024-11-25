@@ -17,16 +17,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: '18.13'  # Usamos Node.js v18.13 o superior para ser compatible con Angular 17
+
+      - name: Install Angular CLI globally
+        run: npm install -g @angular/cli@17.3.8  # Instalamos la versión específica de Angular CLI (17.3.8)
 
       - name: Install dependencies
-        run: npm install
+        run: npm install  # Instalamos las dependencias del proyecto
 
       - name: Build the project
-        run: npm run build --if-present
+        run: npm run build --if-present  # Ejecutamos el build del proyecto
 
       - name: Run tests with coverage
-        run: npm run test -- --code-coverage --watch=false
+        run: npm run test -- --code-coverage --watch=false  # Ejecutamos las pruebas con cobertura
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
@@ -34,3 +37,4 @@ jobs:
           projectKey: CristhoperSocalayR_AS222S5_T08_fe
           organization: cristhopersocalayr
           token: ${{ secrets.SONAR_TOKEN }}
+
