@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {OpenAiQuery} from '../model/OpenAiQuery'
+import { OpenAiQuery } from '../model/OpenAiQuery';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OpenAiService {
-  private readonly apiUrl = 'https://expert-train-wp6v4v999vphwgp-8085.app.github.dev/api/openai'; // Cambiar según tu configuración
+  // Usamos la URL definida en el archivo de configuración del entorno
+  private readonly apiUrl = `${environment.back_url}/api/openai`;
 
   constructor(private http: HttpClient) {}
 
