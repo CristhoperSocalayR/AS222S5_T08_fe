@@ -13,6 +13,7 @@ jobs:
     name: SonarCloud Scan
     runs-on: ubuntu-latest
 
+<<<<<<< HEAD
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -31,3 +32,14 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@v1
         with:
           sonar-token: ${{ secrets.SONAR_TOKEN }}
+=======
+      #DOCKER HUB
+   #  - name: Log in to Docker Hub
+    #     run: echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+  
+    #   - name: Build Docker image
+     #    run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/chatzurefront:latest .
+  
+    #   - name: Push Docker image to Docker Hub
+    #     run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/chatzurefront:latest
+>>>>>>> 9d5418217ef683a1d8ac1d6f5a2429204e96f31b
