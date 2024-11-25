@@ -4,11 +4,13 @@
 
 export  const environment = {
     production: false,
-    back_url: 'https://expert-train-wp6v4v999vphwgp-8085.app.github.dev/'
+    /*back_url: 'https://expert-train-wp6v4v999vphwgp-8085.app.github.dev/'*/
+    back_url: '${API_BACKEND}'
+
   };
   
-  
-  /*
+
+  /* $
    * For easier debugging in development mode, you can import the following file
    * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
    *

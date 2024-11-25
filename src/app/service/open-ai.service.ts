@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
 })
 export class OpenAiService {
   // Usamos la URL definida en el archivo de configuración del entorno
-  private readonly apiUrl = `${environment.back_url}/api/openai`;
+  private readonly apiUrl = `${environment.back_url}api/openai`;
 
   constructor(private http: HttpClient) {}
 
