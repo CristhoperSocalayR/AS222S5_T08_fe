@@ -1,32 +1,50 @@
-name: Build and Analyze with SonarCloud
-#hola que mola
-on:
-  push:
-    branches:
+name: Build, Analyze, and Dockerize Angular
+
+on: 
+  push: 
+    branches: 
       - develop
-  pull_request:
+  pull_request: 
     types: [opened, synchronize, reopened]
 
-jobs:
-  sonarcloud:
+jobs: 
+  sonarcloud: 
     name: SonarCloud Scan
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with: 
+          fetch-depth: 0  # Desactivar clonaciones superficiales para mejorar la relevancia del análisis
+      
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with: 
+          node-version: '16' # Asegúrate de usar una versión compatible
+      
+      - name: Install Dependencies
+        run: npm install
+      
+      - name: Run SonarCloud Analysis
+        uses: SonarSource/sonarcloud-github-action@master
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  dockerize: 
+    name: Dockerize Angular Project
+    needs: sonarcloud
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Desactivar clonaciones superficiales para mejorar la relevancia del análisis
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16' # Asegúrate de usar una versión compatible
+      #DOCKER HUB
+      - name: Log in to Docker Hub
+        run: echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/chatzurefro:latest .
 
-      - name: Run SonarCloud Analysis
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Push Docker image to Docker Hub
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/chatzurefro:latest
