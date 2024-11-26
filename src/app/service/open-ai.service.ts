@@ -10,7 +10,7 @@ import { environment } from '../environments/environment';
 
 export class OpenAiService {
   // Aseguramos que la URL base no tenga una barra inclinada al final antes de concatenar
-  private readonly apiUrl = `${environment.back_url}/api/openai`;
+  private readonly apiUrl = `${environment.BACK_URL}/api/openai`;
 
   constructor(private http: HttpClient) {}
 
