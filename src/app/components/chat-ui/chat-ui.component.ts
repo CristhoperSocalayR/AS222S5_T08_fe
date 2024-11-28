@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AzureOpenAiService } from '../../service/open-ai.service';
+import { OpenAiService } from '../../service/open-ai.service';
 import { OpenAiQuery } from '../../model/OpenAiQuery';
 import { trigger, transition, animate, style } from '@angular/animations';
 import Swal from 'sweetalert2';
@@ -12,10 +12,10 @@ import Swal from 'sweetalert2';
     trigger('messageAnimation', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(10px)' }),
-        animate('0.5s ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-      ])
-    ])
-  ]
+        animate('0.5s ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+      ]),
+    ]),
+  ],
 })
 export class ChatUiComponent implements OnInit {
   userPrompt: string = ''; // Entrada del usuario
@@ -24,13 +24,13 @@ export class ChatUiComponent implements OnInit {
   errorMessage: string = ''; // Mensaje de error (en caso de fallo)
   editingQueryIndex: number | null = null; // Índice de la consulta que se está editando
 
-  constructor(private openAiService: AzureOpenAiService) {}
+  constructor(private openAiService: OpenAiService) {}
 
   ngOnInit(): void {
     this.loadQueries();
   }
 
-  loadQueries(): void {
+  loadQueries() {
     this.openAiService.listAllQueries().subscribe(
       (data) => {
         this.queries = data;
@@ -42,10 +42,8 @@ export class ChatUiComponent implements OnInit {
     );
   }
 
-  sendQuery(): void {
+  sendQuery() {
     if (this.userPrompt.trim()) {
-      this.isLoading = true;
-
       if (this.editingQueryIndex !== null) {
         // Si estamos editando, actualizamos la consulta
         this.updateQuery(this.editingQueryIndex);
@@ -59,6 +57,8 @@ export class ChatUiComponent implements OnInit {
         };
 
         this.queries.push(newQuery);
+        this.isLoading = true;
+
         this.openAiService.createQuery(this.userPrompt).subscribe(
           (response) => {
             newQuery.response = response.response;
@@ -71,7 +71,6 @@ export class ChatUiComponent implements OnInit {
           }
         );
       }
-
       this.userPrompt = ''; // Limpiar el campo después de enviar
       this.editingQueryIndex = null; // Resetear el estado de edición
     }
