@@ -19,14 +19,14 @@ export class OpenAiService {
     return this.http.get<OpenAiQuery>(`${this.apiUrl}`, { params });
   }
 
+  // Para la creación de una nueva consulta (POST)
   createQuery(prompt: string): Observable<OpenAiQuery> {
-    const params = new HttpParams().set('prompt', prompt);
-    return this.http.post<OpenAiQuery>(`${this.apiUrl}`, null, { params });
+    return this.http.post<OpenAiQuery>(`${this.apiUrl}`, { prompt });
   }
 
+  // Para la actualización de una consulta existente (PUT)
   updateQuery(id: number, newPrompt: string): Observable<OpenAiQuery> {
-    const params = new HttpParams().set('newPrompt', newPrompt);
-    return this.http.put<OpenAiQuery>(`${this.apiUrl}/${id}`, null, { params });
+    return this.http.put<OpenAiQuery>(`${this.apiUrl}/${id}`, { prompt: newPrompt });
   }
 
   deleteQuery(id: number): Observable<void> {
