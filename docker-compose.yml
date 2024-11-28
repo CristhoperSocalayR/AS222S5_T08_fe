@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   chatzure-backend:
-    image: cris2003/chatzure
+    image: cris2003/gpt
     container_name: chatzure-backend
     ports:
       - "8085:8085" # Puerto expuesto para el backend, ajustado a 8085
