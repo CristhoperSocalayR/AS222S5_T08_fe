@@ -7,9 +7,7 @@ import { environment } from '../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-
 export class OpenAiService {
-  // Aseguramos que la URL base no tenga una barra inclinada al final antes de concatenar
   private readonly apiUrl = `${environment.BACK_URL}/api/openai`;
 
   constructor(private http: HttpClient) {}
