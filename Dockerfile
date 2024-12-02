@@ -13,10 +13,6 @@ RUN npm install
 # Copiar el resto del código de la aplicación
 COPY . .
 
-# Asegurarse de que el archivo de entorno de producción exista
-# Esto soluciona problemas con environments
-RUN cp src/environments/environment.ts src/environments/environment.prod.ts
-
 # Construir la aplicación Angular en modo producción
 RUN npm run build --configuration=production
 
@@ -26,4 +22,3 @@ EXPOSE 4200
 # Iniciar un servidor para servir los archivos estáticos (por ejemplo, usando http-server o similar)
 RUN npm install -g http-server
 CMD ["http-server", "dist/"]
-
