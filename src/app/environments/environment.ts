@@ -4,9 +4,10 @@
 
 export const environment = {
   production: false,
-  // Use variable interpolation to load backend URL dynamically
-  BACK_URL: 'https://turbo-broccoli-76q7x7rr977crgg5-8085.app.github.dev',
+  // BACK_URL: 'https://turbo-broccoli-76q7x7rr977crgg5-8085.app.github.dev',
+  BACK_URL: '${BACK_URL}'
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file
