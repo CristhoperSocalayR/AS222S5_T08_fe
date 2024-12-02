@@ -14,8 +14,7 @@ RUN npm install
 COPY . .
 
 # Asegurarse de que el archivo de entorno de producción existe
-# Cambia la ruta según la ubicación real del directorio de entornos
-RUN ls /app/src/environments/
+RUN ls /src/app/environments/
 
 # Construir la aplicación Angular en modo producción
 RUN npm run build --configuration=production
