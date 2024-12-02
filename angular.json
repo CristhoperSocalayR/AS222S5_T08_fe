@@ -22,11 +22,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/chatzure",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -67,17 +67,16 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
+           "options": {
             "host": "0.0.0.0",
-            "port": 4200,
-            "proxyConfig": "proxy.conf.json"
+            "port": 4200
           },
           "configurations": {
             "production": {
-              "browserTarget": "chatzure:build:production"
+              "buildTarget": "chatzure:build:production"
             },
             "development": {
-              "browserTarget": "chatzure:build:development"
+              "buildTarget": "chatzure:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -85,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "chatzure:build"
+            "buildTarget": "chatzure:build"
           }
         },
         "test": {

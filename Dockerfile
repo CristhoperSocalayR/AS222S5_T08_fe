@@ -1,26 +1,23 @@
-# Utiliza la imagen base de Node.js
+# Usa una versión más reciente de Node.js
 FROM node:20
 
-# Establece el directorio de trabajo
+# Crear y establecer el directorio de trabajo
 WORKDIR /app
 
-# Copia los archivos necesarios
-COPY package*.json ./
+# Copiar los archivos package.json y package-lock.json
+COPY package*.json /app/
 
-# Instala las dependencias
+# Instalar dependencias (usando caché de Docker si no hay cambios en los archivos package)
 RUN npm install
 
-# Copia el resto del código de la aplicación
-COPY . .
+# Copiar el resto del código de la aplicación
+COPY . /app/
 
-# Construye la aplicación para producción
-RUN npm run build --configuration production
+# Construir la aplicación Angular en modo producción
+RUN npm run build --prod
 
-# Define la variable de entorno para el backend
-ENV BACK_URL=${BACK_URL}
-
-# Expone el puerto
+# Exponer el puerto en el que Angular estará corriendo
 EXPOSE 4200
 
-# Comando de inicio
-CMD ["npx", "http-server", "dist/chatzure"]
+# Iniciar la aplicación Angular
+CMD ["npm", "start"]
