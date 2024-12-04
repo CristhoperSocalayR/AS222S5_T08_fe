@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatzure-app
+  namespace: cristhoper # Cambiado para que coincida con el namespace del Secret
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chatzure-app
+  template:
+    metadata:
+      labels:
+        app: chatzure-app
+    spec:
+      containers:
+      - name: chatzure-backend
+        image: cris2003/gpt:latest
+        ports:
+        - containerPort: 8085
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: DATABASE_URL
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: DATABASE_USERNAME
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: DATABASE_PASSWORD
+      - name: chatzure-frontend
+        image: cris2003/chatzurefr:latest
+        ports:
+        - containerPort: 4200
+        env:
+        - name: BACK_URL
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: BACK_URL

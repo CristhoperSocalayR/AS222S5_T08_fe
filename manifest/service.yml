@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: chatzure-backend-service  # Nombre del servicio para el backend
+  namespace: cristhoper           # Namespace donde se despliega el servicio
+spec:
+  type: NodePort                  # Cambiar a LoadBalancer si estás en un entorno de nube
+  ports:
+  - port: 8085                   # Puerto expuesto por el servicio
+    targetPort: 8085             # Puerto donde escucha la aplicación dentro del contenedor
+    nodePort: 30001              # Puerto accesible desde el nodo
+  selector:
+    app: chatzure-app            # Coincide con la etiqueta del Deployment para el backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chatzure-frontend-service # Nombre del servicio para el frontend
+  namespace: cristhoper           # Namespace donde se despliega el servicio
+spec:
+  type: NodePort                  # Cambiar a LoadBalancer si estás en un entorno de nube
+  ports:
+  - port: 4200                   # Puerto expuesto por el servicio
+    targetPort: 4200             # Puerto donde escucha la aplicación dentro del contenedor
+    nodePort: 30002              # Puerto accesible desde el nodo
+  selector:
+    app: chatzure-app            # Coincide con la etiqueta del Deployment para el frontend
